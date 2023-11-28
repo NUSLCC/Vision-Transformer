@@ -1,5 +1,7 @@
 # Vision Transformer
 
+This repo is cloned and modified from [torch_Vision_Transformer](https://github.com/Runist/torch_Vision_Transformer)
+
 ## Introduction
 
 ![ViT.png](https://s2.loli.net/2022/01/19/w3CyXNrhEeI7xOF.png)
@@ -13,7 +15,7 @@ If this works for you, please give me a star, this is very important to me.😊
 1. Clone this repository
 
 ```shell
-git clone https://github.com/Runist/torch_Vision_Transformer
+git clone https://github.com/NUSLCC/Vision-Transformer.git
 ```
 2. Install torch_Vision_Transformer from source.
 
@@ -36,7 +38,7 @@ python train.py
 7. Open tensorboard to watch loss, learning rate etc. You can also see training process and training process and validation prediction.
 
 ```shell
-tensorboard --logdir ./summary/log
+tensorboard --logdir ./summary
 ```
 ![tensorboard.png](https://s2.loli.net/2022/10/12/p7KtB1uXMkqvreN.png)
 8. Get prediction of model.
