@@ -3,3 +3,6 @@ torchvision==0.9.1
 tensorboard==2.7.0
 opencv-python
 numpy
+matplotlib==3.5.1
+argcomplete
+colorama>=0.3

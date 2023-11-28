@@ -17,16 +17,16 @@ parser.add_argument('--lr', type=float, default=0.001)
 parser.add_argument('--lrf', type=float, default=0.01)
 
 parser.add_argument('--dataset_train_dir', type=str,
-                    default="/home/rhdai/workspace/code/image_classification/dataset/train/",
+                    default="/home/lcc/GitRepo/torch_Vision_Transformer/dataset/train/",
                     help='The directory containing the train data.')
 parser.add_argument('--dataset_val_dir', type=str,
-                    default="/home/rhdai/workspace/code/image_classification/dataset/validation/",
+                    default="/home/lcc/GitRepo/torch_Vision_Transformer/dataset/validation/",
                     help='The directory containing the val data.')
 parser.add_argument('--summary_dir', type=str, default="./summary/vit_base_patch16_224",
                     help='The directory of saving weights and tensorboard.')
 
 # 预训练权重路径，如果不想载入就设置为空字符
-parser.add_argument('--weights', type=str, default='./pretrain_weights/vit_base_patch16_224_in21k.pth',
+parser.add_argument('--weights', type=str, default='./pretrain_weights/vit_base_patch16_224.pth',
                     help='Initial weights path.')
 
 # 是否冻结权重
