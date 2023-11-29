@@ -116,16 +116,19 @@ class Attention(nn.Module):
         # reshape: -> [batch_size, num_patches + 1, 3, num_heads, embed_dim_per_head]
         # permute: -> [3, batch_size, num_heads, num_patches + 1, embed_dim_per_head]
         qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
-        # [batch_size, num_heads, num_patches + 1, embed_dim_per_head]
+        # q, k, v shape is:   [batch_size, num_heads, num_patches + 1, embed_dim_per_head]
         q, k, v = qkv[0], qkv[1], qkv[2]  # make torchscript happy (cannot use tensor as tuple)
 
-        # transpose: -> [batch_size, num_heads, embed_dim_per_head, num_patches + 1]
+        # after transpose: -> [batch_size, num_heads, embed_dim_per_head, num_patches + 1]
+        # [batch_size, num_heads, num_patches + 1, embed_dim_per_head] multiply [batch_size, num_heads, num_patches + 1, embed_dim_per_head]
         # @: multiply -> [batch_size, num_heads, num_patches + 1, num_patches + 1]
         attn = (q @ k.transpose(-2, -1)) * self.scale
         attn = attn.softmax(dim=-1)
         attn = self.attn_drop(attn)
 
-        # @: multiply -> [batch_size, num_heads, num_patches + 1, embed_dim_per_head]
+        # v -> [batch_size, num_heads, num_patches + 1, embed_dim_per_head]
+        # attn -> [batch_size, num_heads, num_patches + 1, num_patches + 1]
+        # attn@v -> [batch_size, num_heads, num_patches + 1, embed_dim_per_head]
         # transpose: -> [batch_size, num_patches + 1, num_heads, embed_dim_per_head]
         # reshape: -> [batch_size, num_patches + 1, total_embed_dim]
         x = (attn @ v).transpose(1, 2).reshape(B, N, C)
@@ -274,6 +277,7 @@ class VisionTransformer(nn.Module):
         else:
             x = torch.cat((cls_token, self.dist_token.expand(x.shape[0], -1, -1), x), dim=1)
 
+        # pos_embed [1, 197*768], x [B, 197, 758]
         x = self.pos_drop(x + self.pos_embed)
         x = self.blocks(x)
         x = self.norm(x)
