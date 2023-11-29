@@ -17,10 +17,10 @@ parser.add_argument('--lr', type=float, default=0.001)
 parser.add_argument('--lrf', type=float, default=0.01)
 
 parser.add_argument('--dataset_train_dir', type=str,
-                    default="/home/lcc/GitRepo/torch_Vision_Transformer/dataset/train/",
+                    default="/home/chenchen/GitRepo/Vision-Transformer/dataset/train/",
                     help='The directory containing the train data.')
 parser.add_argument('--dataset_val_dir', type=str,
-                    default="/home/lcc/GitRepo/torch_Vision_Transformer/dataset/validation/",
+                    default="/home/chenchen/GitRepo/Vision-Transformer/dataset/validation/",
                     help='The directory containing the val data.')
 parser.add_argument('--summary_dir', type=str, default="./summary/vit_base_patch16_224",
                     help='The directory of saving weights and tensorboard.')
